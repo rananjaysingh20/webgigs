@@ -1,10 +1,12 @@
 import './App.css';
-import background from './assets/ComingSoon.png';
+import HomePage from './pages/homePage';
+import ServicesPage from './pages/servicesPage';
 
 function App() {
   return (
     <div className="App">
-      <img src={background} alt={background}/>
+      <HomePage />
+      <ServicesPage />
     </div>
   );
 }
