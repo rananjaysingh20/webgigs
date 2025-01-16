@@ -101,9 +101,9 @@ const Item = styled.div`
   font-size: 80px;
   text-shadow: 0 10px 10px #d1d5db;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  transform: ${() => {
+  transform: ${(props) => {
     let rotation = Math.random() * (5 - -5) + -5;
-    return `rotate(${rotation}deg)`;
+    return props.removeRotate ? "" : `rotate(${rotation}deg)`;
   }};
   @media (max-width: 768px) {
     font-size: 10px;
@@ -112,6 +112,7 @@ const Item = styled.div`
 
 export default function Blogs() {
   const [isMobile, setIsMobile] = React.useState(false);
+  const [removeRotate, setRemoveRotate] = React.useState(false);
 
   React.useEffect(() => {
     // Function to check screen width
@@ -138,11 +139,11 @@ export default function Blogs() {
         }}
       >
         {isMobile && (
-          <Wrapper onVote={(item, vote) => console.log(item.props, vote)}>
+          <Wrapper removeRotate={removeRotate} onVote={(item, vote) => console.log(item.props, vote)}>
             {blogs.map((blog, index) => {
                 return (
-                  <Item data-value="donuts" whileTap={{ scale: 1.15 }}>
-                    <BlogCard isMobile={isMobile} blog={blog} index={index} />
+                  <Item removeRotate={removeRotate} data-value="donuts" whileTap={{ scale: 1.15 }}>
+                    <BlogCard isMobile={isMobile} blog={blog} index={index} setRemoveRotate={setRemoveRotate} />
                   </Item>
                 )
             })}
@@ -150,7 +151,7 @@ export default function Blogs() {
         )}
         {!isMobile &&
           blogs.map((item, index) => {
-            return <BlogCard isMobile={isMobile} blog={item} index={index} />;
+            return <BlogCard setRemoveRotate={setRemoveRotate} isMobile={isMobile} blog={item} index={index} />;
           })}
       </BlogItems>
     </BlogContainer>

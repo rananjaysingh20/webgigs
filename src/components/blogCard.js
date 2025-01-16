@@ -12,7 +12,8 @@ const CardLink = styled(motion.div)`
   position: relative;
   width: 30%;
   @media (max-width: 768px) {
-    background-color: ${(props) => (props.isCardOpened ? "transparent" : "#dcd9ff")};
+    background-color: ${(props) =>
+      props.isCardOpened ? "transparent" : "#dcd9ff"};
   }
   ${(props) =>
     props.isCardOpened &&
@@ -33,9 +34,15 @@ const CardLink = styled(motion.div)`
       flex-direction: column;
       border: none;
     `}
-    @media (max-width: 768px) {
-      width: 100%;
-    }
+  @media (max-width: 768px) {
+    width: 100%;
+    ${(props) =>
+      props.isCardOpened &&
+      css`
+        width: 80%;
+        height: 80%;
+      `}
+  }
 `;
 
 const BlogImage = styled.div`
@@ -55,7 +62,7 @@ const CardHeader = styled(motion.h2)`
   margin: ${(props) => (props.isCardOpened ? "0px" : "15px 10px 10px 10px")};
   color: ${(props) => (props.isCardOpened ? "#ffffff" : "#2f5f48")};
   @media (max-width: 768px) {
-    font-size: 16px;
+    font-size: ${(props) => (props.isCardOpened ? "20px" : "16px")};
     margin: ${(props) => (props.isCardOpened ? "0px" : "0px 0px 0px 10px")};
   }
 `;
@@ -69,6 +76,7 @@ const CardSubtitle = styled(motion.p)`
   color: ${(props) => (props.isCardOpened ? "#ffffff" : "#2f5f48")};
   @media (max-width: 768px) {
     margin: ${(props) => (props.isCardOpened ? "10px 0px" : "0px 10px")};
+    font-size: ${(props) => (props.isCardOpened ? "14px" : "12px")};
   }
 `;
 
@@ -77,7 +85,7 @@ const CardDescription = styled(motion.p)`
   font-size: 1.5em;
   color: #ffffff;
   @media (max-width: 768px) {
-    font-size: 1em;
+    font-size: ${(props) => (props.isCardOpened ? "2em" : "1em")};
   }
 `;
 
@@ -130,7 +138,7 @@ const ViewCount = styled.div`
   }
 `;
 
-export default function BlogCard({ blog, author, imgSrc, isMobile }) {
+export default function BlogCard({ blog, author, imgSrc, setRemoveRotate }) {
   const [isCardOpened, setIsCardOpened] = useState(false);
   const [cardDimensions, setCardDimensions] = useState({ width: 0, height: 0 });
   const card = useRef(null);
@@ -141,12 +149,9 @@ export default function BlogCard({ blog, author, imgSrc, isMobile }) {
         isCardOpened={isCardOpened}
         layout
         onClick={() => {
-          if (!isMobile) {
-            setIsCardOpened(true);
-          }
+          setIsCardOpened(true);
+          setRemoveRotate(true);
           if (!isCardOpened) {
-            console.log(card.current.clientWidth
-              , card.current.clientHeight, 'tjis is wrong');
             setCardDimensions({
               width: card.current.clientWidth,
               height: card.current.clientHeight,
@@ -155,7 +160,12 @@ export default function BlogCard({ blog, author, imgSrc, isMobile }) {
         }}
       >
         <BlogImage isCardOpened={isCardOpened} src="" alt="White Image" />
-        <div style={{ height: window.innerWidth <= 768 ? "190px" : "195px", overflow: window.innerWidth <= 768? "scroll" : "hidden" }}>
+        <div
+          style={{
+            height: window.innerWidth <= 768 ? "188px" : "195px",
+            overflow: "hidden",
+          }}
+        >
           <CardSubtitle isCardOpened={isCardOpened} layout="position">
             {blog.author}
           </CardSubtitle>
@@ -181,7 +191,7 @@ export default function BlogCard({ blog, author, imgSrc, isMobile }) {
             <CardHeader isCardOpened={isCardOpened} layout="position">
               {blog.heading}
             </CardHeader>
-            <CardDescription initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <CardDescription isCardOpened={isCardOpened} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
               {blog.content}
             </CardDescription>
           </>
@@ -198,7 +208,10 @@ export default function BlogCard({ blog, author, imgSrc, isMobile }) {
           <CardBackground
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            onClick={() => setIsCardOpened(false)}
+            onClick={() => {
+              setIsCardOpened(false);
+              setRemoveRotate(false);
+            }}
           />
         </Fragment>
       )}

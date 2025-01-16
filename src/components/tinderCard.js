@@ -6,7 +6,7 @@ const StyledCard = styled(motion.div)`
   position: absolute;
 `;
 
-export const Card = ({ children, style, onVote, id, ...props }) => {
+export const Card = ({ children, style, onVote, id, removeRotate, ...props }) => {
   // motion stuff
   const cardElem = useRef(null);
 
@@ -76,7 +76,7 @@ export const Card = ({ children, style, onVote, id, ...props }) => {
     <StyledCard
       animate={controls}
       dragConstraints={constrained && { left: 0, right: 0, top: 0, bottom: 0 }}
-      dragElastic={1.8}
+      dragElastic={removeRotate ? 0 : 1.8 }
       ref={cardElem}
       style={{ x }}
       onDrag={getTrajectory}

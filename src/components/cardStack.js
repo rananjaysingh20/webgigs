@@ -12,7 +12,7 @@ const Frame = styled.div`
   position: relative;
 `;
 
-export const Stack = ({ onVote, children, ...props }) => {
+export const Stack = ({ onVote, children, removeRotate, ...props }) => {
   const initialStack = Children.toArray(children); // Store the initial stack
   const [stack, setStack] = useState(initialStack);
   const [isResetting, setIsResetting] = useState(false); // To handle smooth refill
@@ -55,6 +55,7 @@ export const Stack = ({ onVote, children, ...props }) => {
             return (
               <Card
                 drag={isTop} // Only top card is draggable
+                removeRotate={removeRotate}
                 key={item.key || index}
                 onVote={(result) => handleVote(item, result)}
               >

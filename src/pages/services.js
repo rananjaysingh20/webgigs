@@ -69,31 +69,31 @@ const ServiceBtn = styled.button`
 const ServiceArray = [
   {
     serviceName: "Website Design",
-    serviceCost: 800,
+    serviceCost: "",
     src: require("../assets/tooltips/1.gif"),
     desc: "Craft visually stunning websites that captivate and convert.",
   },
   {
     serviceName: "Digital Content Creation",
-    serviceCost: 800,
+    serviceCost: "",
     src: require("../assets//tooltips/2.gif"),
     desc: "Elevate your brand with content that resonates and engages.",
   },
   {
     serviceName: "Web Development",
-    serviceCost: 800,
+    serviceCost: "",
     src: require("../assets/tooltips/3.gif"),
     desc: "Build robust, scalable, and cutting-edge web solutions tailored for you.",
   },
   {
     serviceName: "Mobile App Development",
-    serviceCost: 800,
+    serviceCost: "",
     src: require("../assets/tooltips/4.gif"),
     desc: "Transform ideas into intuitive mobile apps that users love.",
   },
   {
     serviceName: "Website Redesigning",
-    serviceCost: 800,
+    serviceCost: "",
     src: require("../assets/tooltips/5.gif"),
     desc: "Revamp your website for a fresh, modern, and impactful online presence.",
   },
@@ -111,7 +111,7 @@ export default function Services() {
               <ServiceToolTip item={item}>
                 <span>{item.serviceName}</span>
               </ServiceToolTip>
-              <span>Rs. {item.serviceCost}</span>
+              <span>{item.serviceCost}</span>
               <AnimatePresence initial={false} mode="popLayout">
                 {formOpen && (
                   <BookingForm setFormOpen={setFormOpen} formOpen={formOpen} />

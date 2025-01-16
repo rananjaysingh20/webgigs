@@ -7,6 +7,7 @@ import Footer from "../components/footer";
 import ParallaxTextComponent from "../components/parallaxText";
 import { motion, useScroll, useSpring } from "motion/react";
 import ModelCanvas from "../components/modelCanvas";
+import ClientMarquee from "../components/logoMarquee";
 
 const MainHome = styled.div`
   background-color: #f3f2ec;
@@ -23,6 +24,7 @@ const HomeImage = styled.div`
   margin: 0px 50px;
   color: white;
   position: relative;
+  overflow: hidden;
   @media (max-width: 768px) {
     margin: 0px 30px;
     height: 600px;
@@ -144,7 +146,7 @@ const Home = () => {
           <ModelCanvas />
           <DiscoverText>Discover WebGigs</DiscoverText>
           <CraftingText>Crafting Digital Excellence</CraftingText>
-          <ExploreBtn onClick={explore}>Explore</ExploreBtn>
+          <ExploreBtn onClick={explore}>{window.innerWidth <= 768 ? "Click Here" : "Explore"}</ExploreBtn>
         </HomeImage>
         <WavePattern>
           <svg
@@ -159,6 +161,7 @@ const Home = () => {
           </svg>
         </WavePattern>
         <Blogs />
+        <ClientMarquee />
         <Services />
         <Portfolio />
         <Footer />
